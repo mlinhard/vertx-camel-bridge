@@ -17,6 +17,27 @@
     <camel.version>2.19.3</camel.version>
   </properties>
 
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ssh</artifactId>
+        <version>2.10</version>
+      </extension>
+    </extensions>
+  </build>
+
+  <distributionManagement>
+    <repository>
+      <id>innovatrics-releases</id>
+      <url>scp://nexus.ba.innovatrics.net/srv/nexus/sonatype-work/nexus/storage/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>innovatrics-snapshots</id>
+      <url>scp://nexus.ba.innovatrics.net/srv/nexus/sonatype-work/nexus/storage/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
