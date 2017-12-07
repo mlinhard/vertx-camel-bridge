@@ -32,6 +32,7 @@ public class CamelToVertxProcessor implements AsyncProcessor {
 
   private final Vertx vertx;
   private final InboundMapping inbound;
+  private final long timeout;
 
   /**
    * Creates a new instance of processor.
@@ -42,11 +43,16 @@ public class CamelToVertxProcessor implements AsyncProcessor {
   public CamelToVertxProcessor(Vertx vertx, InboundMapping inbound) {
     this.vertx = vertx;
     this.inbound = inbound;
+    this.timeout = getSendTimeout();
   }
 
   @Override
   public void process(Exchange exchange) throws Exception {
     AsyncProcessorHelper.process(this, exchange);
+  }
+
+  private static long getSendTimeout() {
+    return Long.parseLong(System.getProperty("vertx.camel.send.timeout", Long.toString(DeliveryOptions.DEFAULT_TIMEOUT)));
   }
 
   @Override
@@ -56,6 +62,7 @@ public class CamelToVertxProcessor implements AsyncProcessor {
     Object body = CamelHelper.convert(inbound, in);
 
     DeliveryOptions delivery = CamelHelper.getDeliveryOptions(in, inbound.isHeadersCopy());
+    delivery.setSendTimeout(timeout);
 
     try {
       if (inbound.isPublish()) {
