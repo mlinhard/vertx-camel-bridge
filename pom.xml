@@ -10,10 +10,10 @@
   </parent>
 
   <artifactId>vertx-camel-bridge</artifactId>
-  <version>3.5.0</version>
+  <version>3.5.0.innovatrics1</version>
 
   <properties>
-    <vertx.version>${project.version}</vertx.version>
+    <vertx.version>3.5.0</vertx.version>
     <camel.version>2.19.3</camel.version>
   </properties>
 
